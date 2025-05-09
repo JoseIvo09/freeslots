@@ -152,7 +152,7 @@ async function startGame(alias) {
     if (!data.result?.url) throw new Error('URL não encontrada');
     const url = new URL(data.result.url);
     url.searchParams.set("jurisdiction", "BR");
-    url.searchParams.set("lobbyUrl", encodeURIComponent("http://localhost:8009/loguinn.html"));
+    url.searchParams.set("lobbyUrl", encodeURIComponent("https://freeslots-red.vercel.app/login.html"));
     url.searchParams.set("lang", "pt");
     url.searchParams.set("cur", "BRL");
     openModal(url.toString());
