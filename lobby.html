@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gratis Bet | Seu Cassino Online</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<header>
+<img src="img/placeholder_banner.jpg" alt="Banner do Cassino" style="max-width: 100%; height: auto; margin-top: 5px;">
+<div class="container">
+        <nav>
+  <a id="sairBtn" href="index.html">Sair</a>
+</nav>
+</div>
+
+<section class="hero">
+    <h2>Bem-vindo ao Gratis Bet - Seu Cassino Online!</h2>
+    <p>Experimente a emoção e diversão dos slots tudo totalmente gratuito.</p>
+</section>
+</header>
+
+    <!-- Filtros -->
+    <div class="filter-container">
+      <input type="text" id="searchBox" placeholder="Filtrar por nome..." />
+      <select id="categoryFilter">
+        <option value="">Todas as Categorias</option>
+      </select>
+      <button id="showFavoritesButton" type="button">Mostrar Favoritos</button>
+      <button id="showAllButton" type="button">Mostrar Todos</button>
+    </div>
+
+    <!-- Botões de layout -->
+    <div class="column-container">
+      <button type="button" onclick="setColumnLayout('one-column')">1 Coluna</button>
+      <button type="button" onclick="setColumnLayout('two-columns')">2 Colunas</button>
+      <button type="button" onclick="setColumnLayout('three-columns')">3 Colunas</button>
+    </div>
+
+    <!-- Lista de Jogos -->
+    <div id="gameContainer" class="game-container one-column"></div>
+  </main>
+
+  <!-- Modal do Jogo -->
+  <div id="gameModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <iframe id="gameFrame" src="" frameborder="0"></iframe>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+
+  <!-- Script principal -->
+  <script src="js/scripts.js"></script>
+</body>
+</html>

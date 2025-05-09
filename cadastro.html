@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gratis Bet Seu Cassino Online - Cadastro</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="css/style.css"/>
+</head>
+<body>
+
+  <header>
+    <img src="img/placeholder_banner.jpg" alt="Banner do Cassino" style="max-width: 100%; height: auto; margin-top: 5px;">
+    <nav>
+      <a href="index.html">Início</a>
+      <a href="jogos.html">Jogos</a>
+      <a href="login.html">Login</a>
+      <a href="cadastro.html">Cadastro</a>
+    </nav>
+    <section class="hero">
+      <h2>Bem-vindo ao Gratis Bet - Seu Cassino Online!</h2>
+      <p>Experimente a emoção e diversão dos slots tudo totalmente gratuito.</p>
+    </section>
+  </header>
+
+  <div class="cadastro-container">
+    <div class="cadastro-box">
+      <h2>Cadastro</h2>
+      <form onsubmit="event.preventDefault(); redirecionar();">
+        <div class="form-group">
+          <label for="nome">Nome Completo:</label>
+          <input type="text" id="nome" name="nome" required>
+        </div>
+
+        <div class="form-group">
+          <label for="username">Nome de Usuário:</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <label for="senha">Senha:</label>
+        <div class="password-container">
+          <input type="password" id="senha" name="senha" required>
+          <span class="toggle-password" onclick="toggleSenha('senha')">👁️</span>
+        </div>
+
+        <label for="senhaConfirmacao">Repita a Senha:</label>
+        <div class="password-container">
+          <input type="password" id="senhaConfirmacao" name="senhaConfirmacao" required>
+          <span class="toggle-password" onclick="toggleSenha('senhaConfirmacao')">👁️</span>
+        </div>
+        <div id="mensagemSenha"></div>
+
+        <h3>Requisitos da Senha:</h3>
+        <ul>
+          <li id="requisitoMinLength">Mínimo de 8 caracteres</li>
+          <li id="requisitoUpperCase">Pelo menos uma letra maiúscula (A-Z)</li>
+          <li id="requisitoLowerCase">Pelo menos uma letra minúscula (a-z)</li>
+          <li id="requisitoNumber">Pelo menos um número (0-9)</li>
+          <li id="requisitoSpecialChar">Pelo menos um caractere especial (!@#$%^&*)</li>
+        </ul>
+        <button type="submit" class="btn-cadastrar">Cadastrar</button>
+      </form>
+      <div class="login-link">
+        Já tem uma conta? <a href="login.html">Faça login aqui</a>
+      </div>
+    <div class="recover-password-link">
+        <a href="#" onclick="recuperarSenha()">Esqueceu a senha?</a>
+    </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Gratis Bet. Todos os Direitos Reservados.</p>
+  </footer>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAwK82kXolPs2iAt41PtQzYl7TEzjdg4Xc",
+      authDomain: "gratisbet-78492.firebaseapp.com",
+      projectId: "gratisbet-78492",
+      storageBucket: "gratisbet-78492.firebasestorage.app",
+      messagingSenderId: "922021397678",
+      appId: "1:922021397678:web:3c4172a0843c1f442f593f"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    function toggleSenha(id) {
+      const input = document.getElementById(id);
+      const container = input.closest('.password-container');
+      const icon = container.querySelector('.toggle-password');
+
+      if (input.type === "password") {
+        input.type = "text";
+        icon.textContent = "🙈";
+      } else {
+        input.type = "password";
+        icon.textContent = "👁️";
+      }
+    }
+
+    function redirecionar() {
+      const nome = document.getElementById("nome").value.trim();
+      const username = document.getElementById("username").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const senha = document.getElementById("senha").value;
+      const senhaConfirmacao = document.getElementById("senhaConfirmacao").value;
+      const mensagem = document.getElementById("mensagemSenha");
+
+      if (senha !== senhaConfirmacao) {
+        mensagem.textContent = "As senhas não coincidem.";
+        mensagem.style.color = "red";
+        return;
+      }
+
+      if (!nome || !username || !email || !senha) {
+        mensagem.textContent = "Por favor, preencha todos os campos.";
+        mensagem.style.color = "red";
+        return;
+      }
+
+      // Firebase Auth
+      firebase.auth().createUserWithEmailAndPassword(email, senha)
+        .then((userCredential) => {
+          mensagem.textContent = "Cadastro realizado com sucesso! Redirecionando...";
+          mensagem.style.color = "green";
+          setTimeout(() => {
+            window.location.href = "login.html";
+          }, 1000);
+        })
+        .catch((error) => {
+          mensagem.textContent = "Erro: " + error.message;
+          mensagem.style.color = "red";
+        });
+    }
+
+    document.getElementById('senha').addEventListener('input', verificarSenha);
+    document.getElementById('senhaConfirmacao').addEventListener('input', verificarConfirmacaoSenha);
+
+    function verificarSenha() {
+      const senha = document.getElementById("senha").value;
+      const requisitos = {
+        minLength: senha.length >= 8,
+        upperCase: /[A-Z]/.test(senha),
+        lowerCase: /[a-z]/.test(senha),
+        number: /[0-9]/.test(senha),
+        specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(senha)
+      };
+
+      Object.entries(requisitos).forEach(([key, isValid]) => {
+        const id = `requisito${key.charAt(0).toUpperCase() + key.slice(1)}`;
+        const elem = document.getElementById(id);
+        if (elem) elem.className = isValid ? "valid" : "invalid";
+      });
+    }
+
+    function verificarConfirmacaoSenha() {
+      const senha = document.getElementById("senha").value;
+      const senhaConfirmacao = document.getElementById("senhaConfirmacao").value;
+      const mensagem = document.getElementById("mensagemSenha");
+
+      if (senhaConfirmacao.length > 0) {
+        if (senha !== senhaConfirmacao) {
+          mensagem.textContent = "As senhas não coincidem.";
+          mensagem.style.color = "red";
+        } else {
+          mensagem.textContent = "As senhas coincidem.";
+          mensagem.style.color = "green";
+        }
+      } else {
+        mensagem.textContent = "";
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      verificarSenha();
+      verificarConfirmacaoSenha();
+    });
+
+        function recuperarSenha() {
+    const email = prompt("Por favor, insira seu e-mail para redefinir a senha:");
+    if (email) {
+        firebase.auth().sendPasswordResetEmail(email)
+            .then(() => {
+                alert("E-mail de recuperação enviado. Verifique sua caixa de entrada.");
+            })
+            .catch((error) => {
+                alert("Erro ao enviar e-mail de recuperação: " + error.message);
+            });
+    }
+}
+
+  </script>
+</body>
+</html>
