@@ -315,7 +315,7 @@ button:hover {
     transform: translate(-50%, -50%);
     width: 90%;
     max-width: 800px;
-    background: white;
+    background: transparent;
     padding: 30px;
     border-radius: 1px;
     text-align: center;
@@ -324,7 +324,7 @@ button:hover {
 
 .modal iframe {
     width: 340px;
-    height: 600px;
+    height: 620px;
     border: none;
 }
 
