@@ -193,28 +193,28 @@ nav a:hover {
         margin: 0 0 20px 0; /* Sem margem lateral */
     }
 
-.game-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    max-width: 1200px;
-    margin: auto;
-    transition: all 0.3s ease-in-out;
-}
+    .game-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+        max-width: 1200px;
+        margin: auto;
+        transition: all 0.3s ease-in-out;
+    }
 
-/* Layout dinâmico por colunas */
-.game-container.one-column .game-card {
-    width: 100%;
-    max-width: 800px;
-}
+    .game-container.one-column .game-card {
+        width: 100%;
+        max-width: 800px;
+    }
 
-.game-container.two-columns .game-card {
-    width: calc(50% - 25px);
-}
+    .game-container.two-columns .game-card {
+        width: calc(50% - 25px);
+    }
 
-.game-container.three-columns .game-card {
-    width: calc(36.333% - 25px);
+    .game-container.three-columns .game-card {
+        width: calc(36.333% - 25px);
+    }
 }
 
 .game-card {
@@ -296,6 +296,54 @@ button:hover {
     background-color: #0056b3;
 }
 
+.btn-google {
+  background-color: #4285F4;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-google:hover {
+  background-color: #357ae8;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  color: #444;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-family: Roboto, sans-serif;
+  font-size: 16px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+.google-btn:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.google-icon-wrapper {
+  margin-right: 10px;
+}
+
+.google-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-text {
+  white-space: nowrap;
+}
 
 .modal {
     display: none;
