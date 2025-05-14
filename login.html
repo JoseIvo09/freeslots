@@ -4,55 +4,70 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gratis Bet Seu Cassino Online - Login</title>
+
+    <!-- Fontes e Estilos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+    <link rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- Firebase Auth UI -->
+    <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
 </head>
 <body>
 
     <header>
-    <img src="img/placeholder_banner.jpg" alt="Banner do Cassino" style="max-width: 100%; height: auto; margin-top: 5px;">
-    <div class="container">
-        <nav>
-            <a href="index.html">Início</a>
-            <a href="jogos.html">Jogos</a>
-            <a href="login.html">Login</a>
-            <a href="cadastro.html">Cadastro</a>
-        </nav>
-    </div>
+        <img src="img/placeholder_banner.jpg" alt="Banner do Cassino" style="max-width: 100%; height: auto; margin-top: 5px;">
+        <div class="container">
+            <nav>
+                <a href="index.html">Início</a>
+                <a href="jogos.html">Jogos</a>
+                <a href="login.html">Login</a>
+                <a href="cadastro.html">Cadastro</a>
+            </nav>
+        </div>
 
-    <section class="hero">
-        <h2>Bem-vindo ao Gratis Bet - Seu Cassino Online!</h2>
-        <p>Experimente a emoção e diversão dos slots tudo totalmente gratuito.</p>
-    </section>
+        <section class="hero">
+            <h2>Bem-vindo ao Gratis Bet - Seu Cassino Online!</h2>
+            <p>Experimente a emoção e diversão dos slots tudo totalmente gratuito.</p>
+        </section>
     </header>
 
-    <div class="login-container">
-        <div class="login-box">
-    <h2>Login</h2>
-    <form onsubmit="logar(event)">
-        <div class="form-group">
-          <label for="username">Email:</label>
-          <input type="text" id="username" name="username" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Senha:</label>
-            <input type="password" id="password" name="password" required>
-            <span class="toggle-password" onclick="toggleSenha()">👁️</span>
-        </div>
-        <button type="submit" class="btn-login">Entrar</button>
-    </form>
-    <div class="recover-password-link">
-        <a href="#" onclick="recuperarSenha()">Esqueceu a senha?</a>
-    </div>
-    <div class="register-link">
-        Não tem uma conta? <a href="cadastro.html">Cadastre-se aqui</a>
+    <main>
+        <div class="login-container">
+            <div class="login-box">
+                <h2>Login</h2>
+                <form onsubmit="logar(event)">
+                    <div class="form-group">
+                        <label for="username">Email:</label>
+                        <input type="text" id="username" name="username" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Senha:</label>
+                        <input type="password" id="password" name="password" required>
+                        <span class="toggle-password" onclick="toggleSenha()">👁️</span>
+                    </div>
+                    <button type="submit" class="btn-login">Entrar</button>
+                </form>
+
+                <div class="google-btn" onclick="loginComGoogle()">
+                    <div class="google-icon-wrapper">
+                        <img class="google-icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+                    </div>
+                    <span class="btn-text">Continuar com o Google</span>
+                </div>
+
+                <div class="recover-password-link">
+                    <a href="#" onclick="recuperarSenha()">Esqueceu a senha?</a>
+                </div>
+
+                <div class="register-link">
+                    Não tem uma conta? <a href="cadastro.html">Cadastre-se aqui</a>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer>
         <p>&copy; Developed by Sinnomar Silva Lino 2025 Gratis Bet. Todos os Direitos Reservados.</p>
@@ -61,19 +76,17 @@
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-    
+
     <script>
-        // Sua configuração do Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyAwK82kXolPs2iAt41PtQzYl7TEzjdg4Xc",
             authDomain: "gratisbet-78492.firebaseapp.com",
             projectId: "gratisbet-78492",
-            storageBucket: "gratisbet-78492.firebasestorage.app",
+            storageBucket: "gratisbet-78492.appspot.com",
             messagingSenderId: "922021397678",
             appId: "1:922021397678:web:3c4172a0843c1f442f593f"
         };
 
-        // Inicializar Firebase
         firebase.initializeApp(firebaseConfig);
 
         function logar(event) {
@@ -84,7 +97,6 @@
 
             firebase.auth().signInWithEmailAndPassword(email, senha)
                 .then((userCredential) => {
-                    // Login bem-sucedido
                     window.location.href = "lobby.html";
                 })
                 .catch((error) => {
@@ -105,19 +117,32 @@
             }
         }
 
-        function recuperarSenha() {
-    const email = prompt("Por favor, insira seu e-mail para redefinir a senha:");
-    if (email) {
-        firebase.auth().sendPasswordResetEmail(email)
-            .then(() => {
-                alert("E-mail de recuperação enviado. Verifique sua caixa de entrada.");
-            })
-            .catch((error) => {
-                alert("Erro ao enviar e-mail de recuperação: " + error.message);
-            });
-    }
-}
+        function loginComGoogle() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    const user = result.user;
+                    alert(`Bem-vindo, ${user.displayName}!`);
+                    window.location.href = "lobby.html";
+                })
+                .catch((error) => {
+                    console.error(error);
+                    alert("Erro ao fazer login com Google: " + error.message);
+                });
+        }
 
+        function recuperarSenha() {
+            const email = prompt("Por favor, insira seu e-mail para redefinir a senha:");
+            if (email) {
+                firebase.auth().sendPasswordResetEmail(email)
+                    .then(() => {
+                        alert("E-mail de recuperação enviado. Verifique sua caixa de entrada.");
+                    })
+                    .catch((error) => {
+                        alert("Erro ao enviar e-mail de recuperação: " + error.message);
+                    });
+            }
+        }
     </script>
 
 </body>
