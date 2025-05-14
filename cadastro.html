@@ -21,63 +21,80 @@
     </nav>
     <section class="hero">
       <h2>Bem-vindo ao Gratis Bet - Seu Cassino Online!</h2>
-      <p>Experimente a emoção e diversão dos slots tudo totalmente gratuito.</p>
+      <p>Experimente a emoção e diversão dos slots totalmente gratuitos.</p>
     </section>
   </header>
 
-  <div class="cadastro-container">
-    <div class="cadastro-box">
-      <h2>Cadastro</h2>
-      <form onsubmit="event.preventDefault(); redirecionar();">
-        <div class="form-group">
-          <label for="nome">Nome Completo:</label>
-          <input type="text" id="nome" name="nome" required>
+  <main>
+    <div class="cadastro-container">
+      <div class="cadastro-box">
+        <h2>Cadastro</h2>
+        <form onsubmit="event.preventDefault(); redirecionar();">
+          <div class="form-group">
+            <label for="nome">Nome Completo:</label>
+            <input type="text" id="nome" name="nome" required>
+          </div>
+
+          <div class="form-group">
+            <label for="username">Nome de Usuário:</label>
+            <input type="text" id="username" name="username" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+
+          <div class="form-group">
+            <label for="senha">Senha:</label>
+            <div class="password-container">
+              <input type="password" id="senha" name="senha" required>
+              <span class="toggle-password" onclick="toggleSenha('senha')">👁️</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="senhaConfirmacao">Repita a Senha:</label>
+            <div class="password-container">
+              <input type="password" id="senhaConfirmacao" name="senhaConfirmacao" required>
+              <span class="toggle-password" onclick="toggleSenha('senhaConfirmacao')">👁️</span>
+            </div>
+          </div>
+
+          <div id="mensagemSenha"></div>
+
+          <h3>Requisitos da Senha:</h3>
+          <ul>
+            <li id="requisitoMinLength">Mínimo de 8 caracteres</li>
+            <li id="requisitoUpperCase">Pelo menos uma letra maiúscula (A-Z)</li>
+            <li id="requisitoLowerCase">Pelo menos uma letra minúscula (a-z)</li>
+            <li id="requisitoNumber">Pelo menos um número (0-9)</li>
+            <li id="requisitoSpecialChar">Pelo menos um caractere especial (!@#$%^&*)</li>
+          </ul>
+
+          <button type="submit" class="btn-cadastrar">Cadastrar</button>
+        </form>
+
+        <div class="google-btn" onclick="loginComGoogle()">
+          <div class="google-icon-wrapper">
+            <img class="google-icon" src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google logo">
+          </div>
+          <span class="btn-text">Continuar com o Google</span>
         </div>
 
-        <div class="form-group">
-          <label for="username">Nome de Usuário:</label>
-          <input type="text" id="username" name="username" required>
+        <div class="login-link">
+          Já tem uma conta? <a href="login.html">Faça login aqui</a>
         </div>
 
-        <div class="form-group">
-          <label for="email">Email:</label>
-          <input type="email" id="email" name="email" required>
+        <div class="recover-password-link">
+          <a href="#" onclick="recuperarSenha()">Esqueceu a senha?</a>
         </div>
-
-        <label for="senha">Senha:</label>
-        <div class="password-container">
-          <input type="password" id="senha" name="senha" required>
-          <span class="toggle-password" onclick="toggleSenha('senha')">👁️</span>
-        </div>
-
-        <label for="senhaConfirmacao">Repita a Senha:</label>
-        <div class="password-container">
-          <input type="password" id="senhaConfirmacao" name="senhaConfirmacao" required>
-          <span class="toggle-password" onclick="toggleSenha('senhaConfirmacao')">👁️</span>
-        </div>
-        <div id="mensagemSenha"></div>
-
-        <h3>Requisitos da Senha:</h3>
-        <ul>
-          <li id="requisitoMinLength">Mínimo de 8 caracteres</li>
-          <li id="requisitoUpperCase">Pelo menos uma letra maiúscula (A-Z)</li>
-          <li id="requisitoLowerCase">Pelo menos uma letra minúscula (a-z)</li>
-          <li id="requisitoNumber">Pelo menos um número (0-9)</li>
-          <li id="requisitoSpecialChar">Pelo menos um caractere especial (!@#$%^&*)</li>
-        </ul>
-        <button type="submit" class="btn-cadastrar">Cadastrar</button>
-      </form>
-      <div class="login-link">
-        Já tem uma conta? <a href="login.html">Faça login aqui</a>
       </div>
-    <div class="recover-password-link">
-        <a href="#" onclick="recuperarSenha()">Esqueceu a senha?</a>
     </div>
-    </div>
-  </div>
+  </main>
 
   <footer>
-    <p>&copy; Developed by Sinnomar Silva Lino  2025 Gratis Bet. Todos os Direitos Reservados.</p>
+    <p>&copy; Developed by Sinnomar Silva Lino 2025 Gratis Bet. Todos os Direitos Reservados.</p>
   </footer>
 
   <!-- Firebase SDKs -->
@@ -98,8 +115,7 @@
 
     function toggleSenha(id) {
       const input = document.getElementById(id);
-      const container = input.closest('.password-container');
-      const icon = container.querySelector('.toggle-password');
+      const icon = input.nextElementSibling;
 
       if (input.type === "password") {
         input.type = "text";
@@ -130,14 +146,11 @@
         return;
       }
 
-      // Firebase Auth
       firebase.auth().createUserWithEmailAndPassword(email, senha)
-        .then((userCredential) => {
+        .then(() => {
           mensagem.textContent = "Cadastro realizado com sucesso! Redirecionando...";
           mensagem.style.color = "green";
-          setTimeout(() => {
-            window.location.href = "login.html";
-          }, 1000);
+          setTimeout(() => window.location.href = "login.html", 1000);
         })
         .catch((error) => {
           mensagem.textContent = "Erro: " + error.message;
@@ -145,24 +158,20 @@
         });
     }
 
-    document.getElementById('senha').addEventListener('input', verificarSenha);
-    document.getElementById('senhaConfirmacao').addEventListener('input', verificarConfirmacaoSenha);
-
     function verificarSenha() {
       const senha = document.getElementById("senha").value;
       const requisitos = {
-        minLength: senha.length >= 8,
-        upperCase: /[A-Z]/.test(senha),
-        lowerCase: /[a-z]/.test(senha),
-        number: /[0-9]/.test(senha),
-        specialChar: /[!@#$%^&*(),.?":{}|<>]/.test(senha)
+        MinLength: senha.length >= 8,
+        UpperCase: /[A-Z]/.test(senha),
+        LowerCase: /[a-z]/.test(senha),
+        Number: /[0-9]/.test(senha),
+        SpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(senha)
       };
 
-      Object.entries(requisitos).forEach(([key, isValid]) => {
-        const id = `requisito${key.charAt(0).toUpperCase() + key.slice(1)}`;
-        const elem = document.getElementById(id);
-        if (elem) elem.className = isValid ? "valid" : "invalid";
-      });
+      for (const [key, valido] of Object.entries(requisitos)) {
+        const elem = document.getElementById(`requisito${key}`);
+        if (elem) elem.className = valido ? "valid" : "invalid";
+      }
     }
 
     function verificarConfirmacaoSenha() {
@@ -170,37 +179,42 @@
       const senhaConfirmacao = document.getElementById("senhaConfirmacao").value;
       const mensagem = document.getElementById("mensagemSenha");
 
-      if (senhaConfirmacao.length > 0) {
-        if (senha !== senhaConfirmacao) {
-          mensagem.textContent = "As senhas não coincidem.";
-          mensagem.style.color = "red";
-        } else {
-          mensagem.textContent = "As senhas coincidem.";
-          mensagem.style.color = "green";
-        }
+      if (senhaConfirmacao) {
+        mensagem.textContent = senha === senhaConfirmacao
+          ? "As senhas coincidem."
+          : "As senhas não coincidem.";
+        mensagem.style.color = senha === senhaConfirmacao ? "green" : "red";
       } else {
         mensagem.textContent = "";
       }
     }
 
-    document.addEventListener('DOMContentLoaded', () => {
-      verificarSenha();
-      verificarConfirmacaoSenha();
-    });
-
-        function recuperarSenha() {
-    const email = prompt("Por favor, insira seu e-mail para redefinir a senha:");
-    if (email) {
-        firebase.auth().sendPasswordResetEmail(email)
-            .then(() => {
-                alert("E-mail de recuperação enviado. Verifique sua caixa de entrada.");
-            })
-            .catch((error) => {
-                alert("Erro ao enviar e-mail de recuperação: " + error.message);
-            });
+    function loginComGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      firebase.auth().signInWithPopup(provider)
+        .then((result) => {
+          alert(`Bem-vindo, ${result.user.displayName}!`);
+          window.location.href = "lobby.html";
+        })
+        .catch((error) => {
+          alert("Erro ao fazer login com Google: " + error.message);
+        });
     }
-}
 
+    function recuperarSenha() {
+      const email = prompt("Por favor, insira seu e-mail para redefinir a senha:");
+      if (email) {
+        firebase.auth().sendPasswordResetEmail(email)
+          .then(() => alert("E-mail de recuperação enviado. Verifique sua caixa de entrada."))
+          .catch((error) => alert("Erro ao enviar e-mail de recuperação: " + error.message));
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("senha").addEventListener("input", verificarSenha);
+      document.getElementById("senhaConfirmacao").addEventListener("input", verificarConfirmacaoSenha);
+    });
   </script>
+
 </body>
 </html>
