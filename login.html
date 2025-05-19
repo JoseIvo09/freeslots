@@ -73,23 +73,27 @@
         <p>&copy; Developed by Sinnomar Silva Lino 2025 Gratis Bet. Todos os Direitos Reservados.</p>
     </footer>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <!-- Firebase SDKs compat -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
 
-    <script>
-        const firebaseConfig = {
-            apiKey: "AIzaSyAwK82kXolPs2iAt41PtQzYl7TEzjdg4Xc",
-            authDomain: "gratisbet-78492.firebaseapp.com",
-            projectId: "gratisbet-78492",
-            storageBucket: "gratisbet-78492.appspot.com",
-            messagingSenderId: "922021397678",
-            appId: "1:922021397678:web:3c4172a0843c1f442f593f"
-        };
+  <!-- Inicialização do Firebase -->
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAwK82kXolPs2iAt41PtQzYl7TEzjdg4Xc",
+      authDomain: "gratisbet-78492.firebaseapp.com",
+      databaseURL: "https://gratisbet-78492-default-rtdb.firebaseio.com",
+      projectId: "gratisbet-78492",
+      storageBucket: "gratisbet-78492.firebasestorage.app",
+      messagingSenderId: "922021397678",
+      appId: "1:922021397678:web:3c4172a0843c1f442f593f"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
 
-        firebase.initializeApp(firebaseConfig);
-
-        function logar(event) {
+  <!-- Funções JS -->
+  <script>
+    function logar(event) {
             event.preventDefault();
 
             const email = document.getElementById("username").value;
